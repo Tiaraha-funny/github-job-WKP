@@ -1,118 +1,90 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useReducer, useState } from "react";
+
+const CORS_API = "https://cors-anywhere.herokuapp.com/";
+const LOCATION_API = "https://jobs.github.com/positions.json?location=";
+const FULL_TIME =
+  "https://jobs.github.com/positions.json?&full time=true&location=";
+
+  const MARKDOWN_API = "&markdown=true";
 
 const GlobalContexts = createContext();
 
-const CORS_API = "https://cors-anywhere.herokuapp.com/";
-const GITHUBJOBS_API = "https://jobs.github.com/positions.json?";
-const MARKDOWN_API = "&markdown=true";
-const FULL_TIME_API = "description=python&full_time=true&location=sf";
-const LONDON_API = "description=python&location=london";
-const SANFRANSISCO_API = "description=python&location=san_francisco";
-const AMSTERDAM_API = "description=python&location=amsterdam";
-const NEW_YORK_API = "description=python&location=new+york";
-const BERLIN_API = "description=python&location=berlin";
+function GithubJobsContextProvider({ children }) {
 
-export default function GithubJobsContextProvider({ children }) {
-  const [jobs, setJobs] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [searchLocation, setSearchLocation] = useState("");
+  const [city, setCity] = useState(location);
+  
+  const [state, dispatch] = useReducer(
+    (state, action) => {
+      switch (action.type) {
+        case "LOAD_DATA": {
+          return { ...state, loading: false, jobs: action.data };
+        }
+        case "FULL_TIME": {
+          return {
+            ...state,
+            loading: false,
+            jobs: action.data,
+          };
+        }
+        case "FILTER_BY_CITY": {
+          return {
+            ...state,
+            loading: false,
+            jobs: action.data,
+            location: action.location,
+          };
+        }
 
-  const DEFAULT_API = CORS_API + GITHUBJOBS_API;
+        case "SEARCH": {
+          return {
+            ...state,
+            loading: false,
+            jobs: action.filterValueFromInput
+          }
+        }
 
-  async function fetchGithubJobsFromAPI() {
-    const responde = await fetch(DEFAULT_API + MARKDOWN_API);
-    const result = await responde.json();
-    setJobs(result);
-    setLoading(false);
-  }
-
-  useEffect(() => {
-    fetchGithubJobsFromAPI();
-    handleCheckbox();
-    handleSearchLocation();
-  }, [location]);
-
-  async function handleCheckbox(e) {
-    console.log("target event", e?.target);
-    const fullTimeJobsForm = e?.target;
-    if (fullTimeJobsForm?.checked) {
-      const response = await fetch(DEFAULT_API + FULL_TIME_API + MARKDOWN_API);
-      const fullTimeResult = await response.json();
-      setJobs(fullTimeResult);
-    } else {
-      return jobs;
+        default:
+          "No data";
+          break;
+      }
+    },
+    {
+      loading: true,
+      jobs: [],
+      location: "london",
     }
-  }
-  async function handleCheckBerlin(e) {
-    console.log("target event", e?.target);
-    const fullTimeJobsForm = e?.target;
-    if (fullTimeJobsForm?.checked) {
-      const response = await fetch(DEFAULT_API + BERLIN_API + MARKDOWN_API);
-      const fullTimeResult = await response.json();
-      setJobs(fullTimeResult);
-    } else {
-      return jobs;
-    }
-  }
-  async function handleCheckNewYork(e) {
-    console.log("target event", e?.target);
-    const fullTimeJobsForm = e?.target;
-    if (fullTimeJobsForm?.checked) {
-      const response = await fetch(DEFAULT_API + NEW_YORK_API + MARKDOWN_API);
-      const fullTimeResult = await response.json();
-      setJobs(fullTimeResult);
-    } else {
-      return jobs;
-    }
+  );
+
+  useEffect(async () => {
+    const data = await fetch(`${CORS_API}${LOCATION_API}${state.location}${MARKDOWN_API}`);
+    const response = await data.json();
+    setTimeout(() => {
+      dispatch({ type: "LOAD_DATA", data: response });
+    }, 1000);
+  }, []);
+
+  async function handleFullTimeJobs(city) {
+    const data = await fetch(`${CORS_API}${FULL_TIME}${city}${MARKDOWN_API}`);
+    const response = await data.json();
+    dispatch({ type: "FULL_TIME", data: response });
   }
 
-  async function handleCheckLondon(e) {
-    console.log("target event", e?.target);
-    const fullTimeJobsForm = e?.target;
-    if (fullTimeJobsForm?.checked) {
-      const response = await fetch(DEFAULT_API + LONDON_API + MARKDOWN_API);
-      const fullTimeResult = await response.json();
-      setJobs(fullTimeResult);
-    } else {
-      return jobs;
-    }
+  async function handleCheckboxFilterLocation(city) {
+    const data = await fetch(`${CORS_API}${LOCATION_API}${city}${MARKDOWN_API}`);
+    const response = await data.json();
+    console.log(data);
+    dispatch({ type: "FILTER_BY_CITY", data: response, location: city });
   }
-
-  async function handleCheckSanFrancisco(e) {
-    console.log("target event", e?.target);
-    const fullTimeJobsForm = e?.target;
-    if (fullTimeJobsForm?.checked) {
-      const response = await fetch(
-        DEFAULT_API + SANFRANSISCO_API + MARKDOWN_API
-      );
-      const fullTimeResult = await response.json();
-      setJobs(fullTimeResult);
-    } else {
-      return jobs;
-    }
-  }
-
-  function handleSearchLocation(e) {
-    const filterLocationNamesFromJobs = jobs.filter((job) => {
-      job.location.toLowerCase();
-    });
-    console.log("filter", filterLocationNamesFromJobs);
-    setJobs(filterLocationNamesFromJobs);
-  }
-
+  
   return (
     <GlobalContexts.Provider
       value={{
-        jobs,
-        loading,
-        handleCheckbox,
-        handleSearchLocation,
-        searchLocation,
-        setSearchLocation,
-        handleCheckSanFrancisco,
-        handleCheckNewYork,
-        handleCheckLondon,
-        handleCheckBerlin,
+        state,
+        dispatch,
+        city,
+        setCity,
+        handleFullTimeJobs,
+        handleCheckboxFilterLocation,
       }}
     >
       {children}
@@ -121,10 +93,3 @@ export default function GithubJobsContextProvider({ children }) {
 }
 
 export { GithubJobsContextProvider, GlobalContexts };
-
-//
-// const searchLocationEvent = jobs.length === 0 && e?.target.location
-// if(searchLocationEvent) {
-// setSearchLocation(e?.target.location)
-// console.log("location search",  searchLocation);
-// }

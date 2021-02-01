@@ -1,22 +1,20 @@
 import React from "react";
-import CitiesSearchContainer from "./containers/citiesSearch";
-import DisplayGithubJobsContainer from "./containers/displayGithubJobs";
-import FullTimeJobsContainer from "./containers/fullTimeJobs";
-import HeaderContainer from "./containers/header";
-import LocationsContainer from "./containers/locations";
-import GithubJobsContextProvider from "./globalContext";
+import { Route, Switch } from "react-router-dom";
+import Details from "./pages/Details";
+import Home from "./pages/Home";
 
 export default function GithubJobApp() {
   return (
-    <GithubJobsContextProvider>
-      <h1>
-        Github <small>Jobs</small>
-      </h1>
-      <HeaderContainer />
-      <FullTimeJobsContainer />
-      <LocationsContainer />
-      <CitiesSearchContainer />
-      <DisplayGithubJobsContainer />
-    </GithubJobsContextProvider>
+    <div>
+      <h1>Github <span>Jobs</span></h1>
+      <Switch>
+        <Route exact path="/">
+          <Home />
+        </Route>
+        <Route path="/details/:Id">
+          <Details />
+        </Route>
+      </Switch>
+    </div>
   );
 }
