@@ -52959,7 +52959,7 @@ const Container = _styledComponents.default.header`
   background-repeat: no-repeat;
   background-size: 100% 100%;
   background-position: 100%;
-  height: 20vh;
+  height: 25vh;
   width: 100%;
 
   display: flex;
@@ -53108,6 +53108,7 @@ const Container = _styledComponents.default.a`
   display: flex;
   margin: 30px;
   color: #334680;
+  border-radius: 10px;
 `;
 exports.Container = Container;
 const Cover = _styledComponents.default.div`
@@ -53303,7 +53304,64 @@ Locations.Cover = function LocationsCover({
 }) {
   return /*#__PURE__*/_react.default.createElement(_location.Cover, restProps, children);
 };
-},{"react":"node_modules/react/index.js","../Locations/styles/location":"github_jobs/components/Locations/styles/location.js"}],"github_jobs/components/index.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","../Locations/styles/location":"github_jobs/components/Locations/styles/location.js"}],"github_jobs/components/ProgressLists/styles/progress.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Buttons = exports.Container = void 0;
+
+var _styledComponents = _interopRequireDefault(require("styled-components"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const Container = _styledComponents.default.section`
+  display: flex;
+  justify-content: flex-end;
+  margin-inline-end: 25px;
+`;
+exports.Container = Container;
+const Buttons = _styledComponents.default.button`
+  padding: 11px 15px;
+  font-size: 1.2rem;
+  color: #b9bdcf;
+  outline: none;
+  margin: 10px;
+
+  :hover {
+    background-color: #1e86ff;
+  }
+`;
+exports.Buttons = Buttons;
+},{"styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"github_jobs/components/ProgressLists/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = ProgressLists;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _progress = require("./styles/progress");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function ProgressLists({
+  children,
+  ...restProps
+}) {
+  return /*#__PURE__*/_react.default.createElement(_progress.Container, restProps, children);
+}
+
+ProgressLists.Buttons = function ProgressListsButton({
+  children,
+  ...restProps
+}) {
+  return /*#__PURE__*/_react.default.createElement(_progress.Buttons, restProps, children);
+};
+},{"react":"node_modules/react/index.js","./styles/progress":"github_jobs/components/ProgressLists/styles/progress.js"}],"github_jobs/components/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -53339,6 +53397,12 @@ Object.defineProperty(exports, "CitiesSearchContainer", {
     return _CitiesSearch.default;
   }
 });
+Object.defineProperty(exports, "ProgressLists", {
+  enumerable: true,
+  get: function () {
+    return _ProgressLists.default;
+  }
+});
 
 var _Header = _interopRequireDefault(require("./Header"));
 
@@ -53350,8 +53414,52 @@ var _Locations = _interopRequireDefault(require("./Locations"));
 
 var _CitiesSearch = _interopRequireDefault(require("./CitiesSearch"));
 
+var _ProgressLists = _interopRequireDefault(require("./ProgressLists"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./Header":"github_jobs/components/Header/index.js","./Full-time":"github_jobs/components/Full-time/index.js","./displayGithubJobs":"github_jobs/components/displayGithubJobs/index.js","./Locations":"github_jobs/components/Locations/index.js","./CitiesSearch":"github_jobs/components/CitiesSearch/index.js"}],"github_jobs/containers/displayGithubJobs.js":[function(require,module,exports) {
+},{"./Header":"github_jobs/components/Header/index.js","./Full-time":"github_jobs/components/Full-time/index.js","./displayGithubJobs":"github_jobs/components/displayGithubJobs/index.js","./Locations":"github_jobs/components/Locations/index.js","./CitiesSearch":"github_jobs/components/CitiesSearch/index.js","./ProgressLists":"github_jobs/components/ProgressLists/index.js"}],"github_jobs/containers/ProgressLists.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = ProgressListsContainer;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _ProgressLists = _interopRequireDefault(require("../components/ProgressLists"));
+
+var _progress = require("../components/ProgressLists/styles/progress");
+
+var _globalContext = require("../globalContext");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function ProgressListsContainer({
+  handleButtonClicks,
+  buttonNumbers
+}) {
+  const {
+    state,
+    dispatch
+  } = (0, _react.useContext)(_globalContext.GlobalContexts);
+  const {
+    jobs
+  } = state;
+  const renderButtonNumber = buttonNumbers.map(number => {
+    return /*#__PURE__*/_react.default.createElement(_ProgressLists.default.Buttons, {
+      key: number,
+      id: number,
+      onClick: handleButtonClicks
+    }, number);
+  });
+  return /*#__PURE__*/_react.default.createElement(_progress.Container, null, renderButtonNumber);
+}
+},{"react":"node_modules/react/index.js","../components/ProgressLists":"github_jobs/components/ProgressLists/index.js","../components/ProgressLists/styles/progress":"github_jobs/components/ProgressLists/styles/progress.js","../globalContext":"github_jobs/globalContext.js"}],"github_jobs/containers/displayGithubJobs.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -53367,6 +53475,10 @@ var _displayGithubJobs = require("../components/displayGithubJobs/styles/display
 
 var _globalContext = require("../globalContext");
 
+var _ProgressLists = _interopRequireDefault(require("./ProgressLists"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
@@ -53380,18 +53492,37 @@ function DisplayGithubJobsContainer() {
     jobs
   } = state;
   console.log("display jobs", jobs);
-  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_components.DisplayJobs.Loading, null, jobs.length === 0 && /*#__PURE__*/_react.default.createElement("h1", null, "Loading...")), jobs.map(job => {
+  const [currentButton, setCurrentButton] = (0, _react.useState)(1);
+  const [switchButtons, setSwitchButtons] = (0, _react.useState)(3);
+
+  function handleButtonClicks(e) {
+    setCurrentButton(e.target.id);
+  }
+
+  const indexOfLastJobs = currentButton * switchButtons;
+  const indexOfFirstJobs = indexOfLastJobs - switchButtons;
+  const currentJobs = jobs.slice(indexOfFirstJobs, indexOfLastJobs);
+  const buttonNumbers = [];
+
+  for (let i = 1; i <= Math.ceil(jobs.length / switchButtons); i++) {
+    buttonNumbers.push(i);
+  }
+
+  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_components.DisplayJobs.Loading, null, jobs.length === 0 && /*#__PURE__*/_react.default.createElement("h1", null, "Loading...")), currentJobs.map((job, index) => {
     let time = new Date().getTime() - new Date(job.created_at).getTime();
     let getTime = Math.round(Math.floor(time) / (1000 * 60 * 60 * 24));
     return /*#__PURE__*/_react.default.createElement(_displayGithubJobs.Container, {
-      key: job.id,
+      key: index,
       href: `/details/${job.id}`
     }, /*#__PURE__*/_react.default.createElement(_components.DisplayJobs.Image, {
       src: job.company_logo
     }), /*#__PURE__*/_react.default.createElement(_components.DisplayJobs.Cover, null, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_components.DisplayJobs.Text, null, job.company), /*#__PURE__*/_react.default.createElement(_components.DisplayJobs.Text, null, job.title), /*#__PURE__*/_react.default.createElement(_components.DisplayJobs.FullTimeBtn, null, job.type)), /*#__PURE__*/_react.default.createElement(_components.DisplayJobs.LocationsAndDates, null, /*#__PURE__*/_react.default.createElement(_components.DisplayJobs.Text, null, job.location), /*#__PURE__*/_react.default.createElement(_components.DisplayJobs.Text, null, getTime, " hours"))));
+  }), /*#__PURE__*/_react.default.createElement(_ProgressLists.default, {
+    handleButtonClicks: handleButtonClicks,
+    buttonNumbers: buttonNumbers
   }));
 }
-},{"react":"node_modules/react/index.js","../components":"github_jobs/components/index.js","../components/displayGithubJobs/styles/displayGithubJobs":"github_jobs/components/displayGithubJobs/styles/displayGithubJobs.js","../globalContext":"github_jobs/globalContext.js"}],"github_jobs/containers/fullTimeJobs.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","../components":"github_jobs/components/index.js","../components/displayGithubJobs/styles/displayGithubJobs":"github_jobs/components/displayGithubJobs/styles/displayGithubJobs.js","../globalContext":"github_jobs/globalContext.js","./ProgressLists":"github_jobs/containers/ProgressLists.js"}],"github_jobs/containers/fullTimeJobs.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -53658,7 +53789,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56995" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62248" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

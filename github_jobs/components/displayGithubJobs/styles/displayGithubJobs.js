@@ -5,6 +5,7 @@ export const Container = styled.a`
   display: flex;
   margin: 30px;
   color: #334680;
+  border-radius: 10px;
 `;
 export const Cover = styled.div`
   display: flex;

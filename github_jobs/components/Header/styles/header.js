@@ -5,7 +5,7 @@ export const Container = styled.header`
   background-repeat: no-repeat;
   background-size: 100% 100%;
   background-position: 100%;
-  height: 20vh;
+  height: 25vh;
   width: 100%;
 
   display: flex;
