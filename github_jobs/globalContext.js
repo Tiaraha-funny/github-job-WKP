@@ -51,7 +51,7 @@ function GithubJobsContextProvider({ children }) {
     {
       loading: true,
       jobs: [],
-      location: "london",
+      location: "amsterdam",
     }
   );
 

@@ -15,13 +15,15 @@ export default function LocationsContainer() {
     <Form>
       <Locations.Title>Location</Locations.Title>
       <br />
-      <Locations.Input
-        type="text"
-        name="location"
-        value={inputSearch}
-        onChange={Search}
-        placeholder="city, zipe code or country..."
-      />
+      <Locations.Cover>
+        <Locations.Input
+          type="text"
+          name="location"
+          value={inputSearch}
+          onChange={Search}
+          placeholder="city, zipe code or country..."
+        />
+      </Locations.Cover>
     </Form>
   );
 }

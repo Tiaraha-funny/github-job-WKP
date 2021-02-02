@@ -11,7 +11,7 @@ export default function HeaderContainer() {
   function handleSubmitForm(e) {
     e.preventDefault();
     const filterValueFromInput = jobs.filter((input) =>
-      input.title.toLowerCase().includes(search.toLowerCase())
+      input.title.toLowerCase().includes(search.toLowerCase()) || input.company.toLowerCase().includes(search.toLowerCase())
     );
     console.log("filter", filterValueFromInput);
     dispatch({type: "SEARCH", filterValueFromInput})
