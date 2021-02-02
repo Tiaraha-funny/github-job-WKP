@@ -1,9 +1,11 @@
 import styled from "styled-components";
 
 export const Form = styled.form`
+  margin-top: 30px;
+  margin-bottom: 40px;
 `;
 export const Input = styled.input`
-  width: 90%;
+  width: 100%;
   outline: none;
   border: none;
 
@@ -15,7 +17,9 @@ export const Input = styled.input`
 `;
 export const Title = styled.label`
   color: #b9bdcf;
-  font-size: 20px;
+  font-size: 30px;
+  line-height: 80px;
+  font-weight: 600;
 `;
 
 export const Cover = styled.div`
@@ -24,5 +28,9 @@ export const Cover = styled.div`
   height: 48px;
   background-color: #fff;
   border-radius: 4px;
-  max-width: 790px;
+  width: 125%;
+  display: flex;
+  img {
+    width: 25px;
+  }
 `;

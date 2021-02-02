@@ -52567,7 +52567,79 @@ function BiZoomOut(props) {
 }
 
 ;
-},{"../lib":"node_modules/react-icons/lib/esm/index.js"}],"github_jobs/globalContext.js":[function(require,module,exports) {
+},{"../lib":"node_modules/react-icons/lib/esm/index.js"}],"github_jobs/components/Details/styles/details.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Group = exports.Title = exports.Goback = exports.Container = void 0;
+
+var _styledComponents = _interopRequireDefault(require("styled-components"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const Container = _styledComponents.default.section`
+  @media (min-width: 1000px) {
+    display: flex;
+  }
+`;
+exports.Container = Container;
+const Goback = _styledComponents.default.a`
+  font-size: 20px;
+  cursor: pointer;
+  color: blue;
+`;
+exports.Goback = Goback;
+const Title = _styledComponents.default.h2``;
+exports.Title = Title;
+const Group = _styledComponents.default.div`
+width: 1000vw;
+margin-right: 30px;
+`;
+exports.Group = Group;
+},{"styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"github_jobs/components/Details/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = Details;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _details = require("./styles/details");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function Details({
+  children,
+  ...restProps
+}) {
+  return /*#__PURE__*/_react.default.createElement(_details.Container, restProps, children);
+}
+
+Details.Title = function DetailsTitle({
+  children,
+  ...restProps
+}) {
+  return /*#__PURE__*/_react.default.createElement(_details.Title, restProps, children);
+};
+
+Details.Goback = function DetailsGoback({
+  children,
+  ...restProps
+}) {
+  return /*#__PURE__*/_react.default.createElement(_details.Goback, restProps, children);
+};
+
+Details.Group = function DetailsGroup({
+  children,
+  ...restProps
+}) {
+  return /*#__PURE__*/_react.default.createElement(_details.Group, restProps, children);
+};
+},{"react":"node_modules/react/index.js","./styles/details":"github_jobs/components/Details/styles/details.js"}],"github_jobs/globalContext.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -52693,13 +52765,19 @@ var _bi = require("react-icons/bi");
 
 var _reactRouterDom = require("react-router-dom");
 
+var _Details = _interopRequireDefault(require("../components/Details"));
+
+var _details = require("../components/Details/styles/details");
+
 var _globalContext = require("../globalContext");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-function Details() {
+function DetailsContainer() {
   const {
     state
   } = (0, _react.useContext)(_globalContext.GlobalContexts);
@@ -52720,37 +52798,15 @@ function Details() {
 
   function ShowDetails() {
     if (findDetailedJobById) {
-      return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", {
-        className: "howto"
-      }, /*#__PURE__*/_react.default.createElement("p", null, "Email your resume and cover letter to", /*#__PURE__*/_react.default.createElement("a", {
+      return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("p", null, "Email your resume and cover letter to", /*#__PURE__*/_react.default.createElement(_Details.default.Goback, {
         href: findDetailedJobById?.company_url
-      }, " ", findDetailedJobById?.company_url, " "), "Looking forward to hearing from your")), /*#__PURE__*/_react.default.createElement("div", {
-        className: "details-content"
-      }, /*#__PURE__*/_react.default.createElement("h1", null, " ", findDetailedJobById?.title), /*#__PURE__*/_react.default.createElement("button", {
-        className: "custom-label"
-      }, " ", findDetailedJobById?.type, " "), /*#__PURE__*/_react.default.createElement("div", {
-        className: "job-date"
-      }, findDetailedJobById?.created_at), /*#__PURE__*/_react.default.createElement("div", {
-        className: "company-details"
-      }, findDetailedJobById?.company_logo, /*#__PURE__*/_react.default.createElement("div", {
-        className: "meta"
-      }, findDetailedJobById?.company, /*#__PURE__*/_react.default.createElement("div", {
-        className: "job-location"
-      }, findDetailedJobById?.location))), /*#__PURE__*/_react.default.createElement("div", {
-        className: "job-description"
-      }, /*#__PURE__*/_react.default.createElement("p", null, "Who we are "), findDetailedJobById?.description)));
+      }, " ", findDetailedJobById?.company_url, " "), "Looking forward to hearing from your")), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h1", null, " ", findDetailedJobById?.title), /*#__PURE__*/_react.default.createElement("button", null, " ", findDetailedJobById?.type, " "), /*#__PURE__*/_react.default.createElement("div", null, findDetailedJobById?.created_at), /*#__PURE__*/_react.default.createElement("div", null, findDetailedJobById?.company_logo, /*#__PURE__*/_react.default.createElement("div", null, findDetailedJobById?.company, /*#__PURE__*/_react.default.createElement("div", null, findDetailedJobById?.location))), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("p", null, "Who we are "), findDetailedJobById?.description)));
     } else {
       return null;
     }
   }
 
-  return /*#__PURE__*/_react.default.createElement("div", {
-    className: "details"
-  }, /*#__PURE__*/_react.default.createElement("div", {
-    className: "details-container"
-  }, /*#__PURE__*/_react.default.createElement("div", {
-    className: "details-sidebar"
-  }, /*#__PURE__*/_react.default.createElement("a", {
+  return /*#__PURE__*/_react.default.createElement(_details.Container, null, /*#__PURE__*/_react.default.createElement(_Details.default.Group, null, /*#__PURE__*/_react.default.createElement(_Details.default.Goback, {
     onClick: GoBackHome,
     className: " backHome details-sidebare__back-link"
   }, /*#__PURE__*/_react.default.createElement(_bi.BiArrowBack, {
@@ -52759,12 +52815,12 @@ function Details() {
     className: "howto"
   }, /*#__PURE__*/_react.default.createElement("p", null, /*#__PURE__*/_react.default.createElement("a", {
     href: "https://www.exact.com/nl/werken-bij/vacatures/a0t4I00000nSFX7QAO-senior-software-engineer-net/apply?vq_campaign=f68f09cf-943b-56ae-9ba0-d2980d30489c&vq_source=819"
-  })))), /*#__PURE__*/_react.default.createElement("div", null, ShowDetails())));
+  })))), /*#__PURE__*/_react.default.createElement("div", null, ShowDetails()));
 }
 
-var _default = Details;
+var _default = DetailsContainer;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","react-icons/bi":"node_modules/react-icons/bi/index.esm.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","../globalContext":"github_jobs/globalContext.js"}],"github_jobs/components/Home/styles/home.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-icons/bi":"node_modules/react-icons/bi/index.esm.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","../components/Details":"github_jobs/components/Details/index.js","../components/Details/styles/details":"github_jobs/components/Details/styles/details.js","../globalContext":"github_jobs/globalContext.js"}],"github_jobs/components/Home/styles/home.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -52789,7 +52845,7 @@ exports.Content = Content;
 const Checkbox = _styledComponents.default.div`
 color: #334680;
 padding: 50px;
-font-size: 25px;
+font-size: 20px;
 `;
 exports.Checkbox = Checkbox;
 },{"styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"github_jobs/components/Home/index.js":[function(require,module,exports) {
@@ -52838,11 +52894,10 @@ var _styledComponents = _interopRequireDefault(require("styled-components"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const Container = _styledComponents.default.form`
-`;
+const Container = _styledComponents.default.form``;
 exports.Container = Container;
 const Input = _styledComponents.default.input`
-margin-right: 20px;
+  margin-right: 20px;
 `;
 exports.Input = Input;
 const Label = _styledComponents.default.label``;
@@ -53115,6 +53170,7 @@ const LinkDetails = _styledComponents.default.div`
   margin: 30px;
   color: #334680;
   border-radius: 10px;
+  text-decoration: none;
 `;
 exports.LinkDetails = LinkDetails;
 const Cover = _styledComponents.default.div`
@@ -53126,6 +53182,11 @@ const Cover = _styledComponents.default.div`
 exports.Cover = Cover;
 const Text = _styledComponents.default.div`
   margin-right: 20px;
+  display: flex;
+
+  img {
+    width: 20px;
+  }
 `;
 exports.Text = Text;
 const Loading = _styledComponents.default.div`
@@ -53252,10 +53313,12 @@ var _styledComponents = _interopRequireDefault(require("styled-components"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const Form = _styledComponents.default.form`
+  margin-top: 30px;
+  margin-bottom: 40px;
 `;
 exports.Form = Form;
 const Input = _styledComponents.default.input`
-  width: 90%;
+  width: 100%;
   outline: none;
   border: none;
 
@@ -53268,7 +53331,9 @@ const Input = _styledComponents.default.input`
 exports.Input = Input;
 const Title = _styledComponents.default.label`
   color: #b9bdcf;
-  font-size: 20px;
+  font-size: 30px;
+  line-height: 80px;
+  font-weight: 600;
 `;
 exports.Title = Title;
 const Cover = _styledComponents.default.div`
@@ -53277,7 +53342,11 @@ const Cover = _styledComponents.default.div`
   height: 48px;
   background-color: #fff;
   border-radius: 4px;
-  max-width: 790px;
+  width: 125%;
+  display: flex;
+  img {
+    width: 25px;
+  }
 `;
 exports.Cover = Cover;
 },{"styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"github_jobs/components/Locations/index.js":[function(require,module,exports) {
@@ -53420,6 +53489,12 @@ Object.defineProperty(exports, "ProgressLists", {
     return _ProgressLists.default;
   }
 });
+Object.defineProperty(exports, "DetailsContainer", {
+  enumerable: true,
+  get: function () {
+    return _Details.default;
+  }
+});
 
 var _Header = _interopRequireDefault(require("./Header"));
 
@@ -53433,8 +53508,10 @@ var _CitiesSearch = _interopRequireDefault(require("./CitiesSearch"));
 
 var _ProgressLists = _interopRequireDefault(require("./ProgressLists"));
 
+var _Details = _interopRequireDefault(require("./Details"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./Header":"github_jobs/components/Header/index.js","./Full-time":"github_jobs/components/Full-time/index.js","./displayGithubJobs":"github_jobs/components/displayGithubJobs/index.js","./Locations":"github_jobs/components/Locations/index.js","./CitiesSearch":"github_jobs/components/CitiesSearch/index.js","./ProgressLists":"github_jobs/components/ProgressLists/index.js"}],"github_jobs/containers/ProgressLists.js":[function(require,module,exports) {
+},{"./Header":"github_jobs/components/Header/index.js","./Full-time":"github_jobs/components/Full-time/index.js","./displayGithubJobs":"github_jobs/components/displayGithubJobs/index.js","./Locations":"github_jobs/components/Locations/index.js","./CitiesSearch":"github_jobs/components/CitiesSearch/index.js","./ProgressLists":"github_jobs/components/ProgressLists/index.js","./Details":"github_jobs/components/Details/index.js"}],"github_jobs/containers/ProgressLists.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -53476,7 +53553,11 @@ function ProgressListsContainer({
   });
   return /*#__PURE__*/_react.default.createElement(_progress.Container, null, renderButtonNumber);
 }
-},{"react":"node_modules/react/index.js","../components/ProgressLists":"github_jobs/components/ProgressLists/index.js","../components/ProgressLists/styles/progress":"github_jobs/components/ProgressLists/styles/progress.js","../globalContext":"github_jobs/globalContext.js"}],"github_jobs/containers/displayGithubJobs.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","../components/ProgressLists":"github_jobs/components/ProgressLists/index.js","../components/ProgressLists/styles/progress":"github_jobs/components/ProgressLists/styles/progress.js","../globalContext":"github_jobs/globalContext.js"}],"github_jobs/icons/clock.svg":[function(require,module,exports) {
+module.exports = "/clock.88f9d63f.svg";
+},{}],"github_jobs/icons/public_in-input.svg":[function(require,module,exports) {
+module.exports = "/public_in-input.f30ee51e.svg";
+},{}],"github_jobs/containers/displayGithubJobs.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -53493,6 +53574,10 @@ var _displayGithubJobs = require("../components/displayGithubJobs/styles/display
 var _globalContext = require("../globalContext");
 
 var _ProgressLists = _interopRequireDefault(require("./ProgressLists"));
+
+var _clock = _interopRequireDefault(require("../icons/clock.svg"));
+
+var _public_inInput = _interopRequireDefault(require("../icons/public_in-input.svg"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -53534,13 +53619,17 @@ function DisplayGithubJobsContainer() {
       to: `/details/${job.id}`
     }, /*#__PURE__*/_react.default.createElement(_components.DisplayJobs.Image, {
       src: job.company_logo
-    }), /*#__PURE__*/_react.default.createElement(_components.DisplayJobs.Cover, null, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_components.DisplayJobs.Text, null, job.company), /*#__PURE__*/_react.default.createElement(_components.DisplayJobs.Text, null, job.title), /*#__PURE__*/_react.default.createElement(_components.DisplayJobs.FullTimeBtn, null, job.type)), /*#__PURE__*/_react.default.createElement(_components.DisplayJobs.LocationsAndDates, null, /*#__PURE__*/_react.default.createElement(_components.DisplayJobs.Text, null, job.location), /*#__PURE__*/_react.default.createElement(_components.DisplayJobs.Text, null, getTime, " hours")))));
+    }), /*#__PURE__*/_react.default.createElement(_components.DisplayJobs.Cover, null, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_components.DisplayJobs.Text, null, job.company), /*#__PURE__*/_react.default.createElement(_components.DisplayJobs.Text, null, job.title), /*#__PURE__*/_react.default.createElement(_components.DisplayJobs.FullTimeBtn, null, job.type)), /*#__PURE__*/_react.default.createElement(_components.DisplayJobs.LocationsAndDates, null, /*#__PURE__*/_react.default.createElement(_components.DisplayJobs.Text, null, /*#__PURE__*/_react.default.createElement("img", {
+      src: _public_inInput.default
+    }), job.location), /*#__PURE__*/_react.default.createElement(_components.DisplayJobs.Text, null, /*#__PURE__*/_react.default.createElement("img", {
+      src: _clock.default
+    }), getTime, " hours")))));
   }), /*#__PURE__*/_react.default.createElement(_ProgressLists.default, {
     handleButtonClicks: handleButtonClicks,
     buttonNumbers: buttonNumbers
   }));
 }
-},{"react":"node_modules/react/index.js","../components":"github_jobs/components/index.js","../components/displayGithubJobs/styles/displayGithubJobs":"github_jobs/components/displayGithubJobs/styles/displayGithubJobs.js","../globalContext":"github_jobs/globalContext.js","./ProgressLists":"github_jobs/containers/ProgressLists.js"}],"github_jobs/containers/fullTimeJobs.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","../components":"github_jobs/components/index.js","../components/displayGithubJobs/styles/displayGithubJobs":"github_jobs/components/displayGithubJobs/styles/displayGithubJobs.js","../globalContext":"github_jobs/globalContext.js","./ProgressLists":"github_jobs/containers/ProgressLists.js","../icons/clock.svg":"github_jobs/icons/clock.svg","../icons/public_in-input.svg":"github_jobs/icons/public_in-input.svg"}],"github_jobs/containers/fullTimeJobs.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -53581,7 +53670,9 @@ function FullTimeJobsContainer() {
     onChange: getFullTimeJobs
   }), "Full time");
 }
-},{"react":"node_modules/react/index.js","../components":"github_jobs/components/index.js","../components/Full-time/styles/Full_time":"github_jobs/components/Full-time/styles/Full_time.js","../globalContext":"github_jobs/globalContext.js"}],"github_jobs/containers/header.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","../components":"github_jobs/components/index.js","../components/Full-time/styles/Full_time":"github_jobs/components/Full-time/styles/Full_time.js","../globalContext":"github_jobs/globalContext.js"}],"github_jobs/icons/work_outline.svg":[function(require,module,exports) {
+module.exports = "/work_outline.18c871dd.svg";
+},{}],"github_jobs/containers/header.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -53596,6 +53687,10 @@ var _components = require("../components");
 var _header = require("../components/Header/styles/header");
 
 var _globalContext = require("../globalContext");
+
+var _work_outline = _interopRequireDefault(require("../icons/work_outline.svg"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
@@ -53627,7 +53722,9 @@ function HeaderContainer() {
 
   return /*#__PURE__*/_react.default.createElement(_header.Container, null, /*#__PURE__*/_react.default.createElement(_components.Header.Form, {
     onSubmit: handleSubmitForm
-  }, /*#__PURE__*/_react.default.createElement(_components.Header.Input, {
+  }, /*#__PURE__*/_react.default.createElement("img", {
+    src: _work_outline.default
+  }), /*#__PURE__*/_react.default.createElement(_components.Header.Input, {
     type: "text",
     name: "company",
     value: search,
@@ -53635,7 +53732,7 @@ function HeaderContainer() {
     placeholder: "Title, companies, expo..."
   }), /*#__PURE__*/_react.default.createElement(_components.Header.Button, null, "Search")));
 }
-},{"react":"node_modules/react/index.js","../components":"github_jobs/components/index.js","../components/Header/styles/header":"github_jobs/components/Header/styles/header.js","../globalContext":"github_jobs/globalContext.js"}],"github_jobs/containers/locations.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","../components":"github_jobs/components/index.js","../components/Header/styles/header":"github_jobs/components/Header/styles/header.js","../globalContext":"github_jobs/globalContext.js","../icons/work_outline.svg":"github_jobs/icons/work_outline.svg"}],"github_jobs/containers/locations.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -53650,6 +53747,8 @@ var _Locations = _interopRequireDefault(require("../components/Locations"));
 var _location = require("../components/Locations/styles/location");
 
 var _globalContext = require("../globalContext");
+
+var _public_inInput = _interopRequireDefault(require("../icons/public_in-input.svg"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -53668,7 +53767,9 @@ function LocationsContainer() {
     handleCheckboxFilterLocation(e.target.value);
   }
 
-  return /*#__PURE__*/_react.default.createElement(_location.Form, null, /*#__PURE__*/_react.default.createElement(_Locations.default.Title, null, "Location"), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_Locations.default.Cover, null, /*#__PURE__*/_react.default.createElement(_Locations.default.Input, {
+  return /*#__PURE__*/_react.default.createElement(_location.Form, null, /*#__PURE__*/_react.default.createElement(_Locations.default.Title, null, "Location"), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_Locations.default.Cover, null, /*#__PURE__*/_react.default.createElement("img", {
+    src: _public_inInput.default
+  }), /*#__PURE__*/_react.default.createElement(_Locations.default.Input, {
     type: "text",
     name: "location",
     value: inputSearch,
@@ -53676,7 +53777,7 @@ function LocationsContainer() {
     placeholder: "city, zipe code or country..."
   })));
 }
-},{"react":"node_modules/react/index.js","../components/Locations":"github_jobs/components/Locations/index.js","../components/Locations/styles/location":"github_jobs/components/Locations/styles/location.js","../globalContext":"github_jobs/globalContext.js"}],"github_jobs/pages/Home.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","../components/Locations":"github_jobs/components/Locations/index.js","../components/Locations/styles/location":"github_jobs/components/Locations/styles/location.js","../globalContext":"github_jobs/globalContext.js","../icons/public_in-input.svg":"github_jobs/icons/public_in-input.svg"}],"github_jobs/pages/Home.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -53759,6 +53860,11 @@ html, body {
 button {
     cursor: pointer;
 }
+
+a {
+    text-decoration: none;
+}
+
 `;
 exports.GlobalStyles = GlobalStyles;
 },{"styled-components":"node_modules/styled-components/dist/styled-components.browser.esm.js"}],"github_jobs/index.js":[function(require,module,exports) {

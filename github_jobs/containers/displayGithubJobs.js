@@ -4,6 +4,9 @@ import { Container } from "../components/displayGithubJobs/styles/displayGithubJ
 import { GlobalContexts } from "../globalContext";
 import ProgressListsContainer from "./ProgressLists";
 
+import clock from "../icons/clock.svg"; 
+import pub from "../icons/public_in-input.svg";
+
 export default function DisplayGithubJobsContainer() {
   const { state, loading } = useContext(GlobalContexts);
   const { jobs } = state;
@@ -45,8 +48,12 @@ export default function DisplayGithubJobsContainer() {
                 </div>
 
                 <DisplayJobs.LocationsAndDates>
-                  <DisplayJobs.Text>{job.location}</DisplayJobs.Text>
-                  <DisplayJobs.Text>{getTime} hours</DisplayJobs.Text>
+                  <DisplayJobs.Text>
+                    <img src={pub} />
+                    {job.location}</DisplayJobs.Text>
+                  <DisplayJobs.Text>
+                    <img src={clock} />
+                    {getTime} hours</DisplayJobs.Text>
                 </DisplayJobs.LocationsAndDates>
               </DisplayJobs.Cover>
               </DisplayJobs.LinkDetails>

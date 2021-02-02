@@ -1,9 +1,11 @@
 import React, { useContext, useState } from "react";
 import { BiArrowBack } from "react-icons/bi";
 import { useHistory, useParams } from "react-router-dom";
+import Details from "../components/Details";
+import { Container } from "../components/Details/styles/details";
 import { GlobalContexts } from "../globalContext";
 
-function Details() {
+function DetailsContainer() {
   const { state } = useContext(GlobalContexts);
   const { jobs } = state;
 
@@ -22,37 +24,36 @@ function Details() {
   const findDetailedJobById = jobs.find((detail) => detail?.id === Id);
 
   function ShowDetails() {
-
     if (findDetailedJobById) {
       return (
         <div>
-          <div className="howto">
+          <div>
             <p>
               Email your resume and cover letter to
-              <a href={findDetailedJobById?.company_url}>
+              <Details.Goback href={findDetailedJobById?.company_url}>
                 {" "}
                 {findDetailedJobById?.company_url}{" "}
-              </a>
+              </Details.Goback>
               Looking forward to hearing from your
             </p>
           </div>
-          <div className="details-content">
+          <div>
             <h1> {findDetailedJobById?.title}</h1>
-            <button className="custom-label">
+            <button>
               {" "}
               {findDetailedJobById?.type}{" "}
             </button>
-            <div className="job-date">{findDetailedJobById?.created_at}</div>
-            <div className="company-details">
+            <div>{findDetailedJobById?.created_at}</div>
+            <div>
               {findDetailedJobById?.company_logo}
-              <div className="meta">
+              <div>
                 {findDetailedJobById?.company}
-                <div className="job-location">
+                <div>
                   {findDetailedJobById?.location}
                 </div>
               </div>
             </div>
-            <div className="job-description">
+            <div>
               <p>Who we are </p>
               {findDetailedJobById?.description}
             </div>
@@ -65,28 +66,25 @@ function Details() {
   }
 
   return (
-    <div className="details">
-      <div className="details-container">
-        <div className="details-sidebar">
-          <a
+    <Container>
+        <Details.Group>
+          <Details.Goback
             onClick={GoBackHome}
             className=" backHome details-sidebare__back-link"
           >
             <BiArrowBack className="backHome"></BiArrowBack>
             Go back to search
-          </a>
+          </Details.Goback>
           <h3>How to apply</h3>
           <div className="howto">
             <p>
               <a href="https://www.exact.com/nl/werken-bij/vacatures/a0t4I00000nSFX7QAO-senior-software-engineer-net/apply?vq_campaign=f68f09cf-943b-56ae-9ba0-d2980d30489c&vq_source=819"></a>
             </p>
           </div>
-        </div>
+        </Details.Group>
         <div>{ShowDetails()}</div>
-      </div>
-    </div>
+    </Container>
   );
-
 }
 
-export default Details;
+export default DetailsContainer;

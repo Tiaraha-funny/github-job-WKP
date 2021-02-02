@@ -13,6 +13,7 @@ export const LinkDetails = styled.div`
   margin: 30px;
   color: #334680;
   border-radius: 10px;
+  text-decoration: none;
 `;
 
 export const Cover = styled.div`
@@ -24,6 +25,11 @@ export const Cover = styled.div`
 
 export const Text = styled.div`
   margin-right: 20px;
+  display: flex;
+
+  img {
+    width: 20px;
+  }
 `;
 
 export const Loading = styled.div`

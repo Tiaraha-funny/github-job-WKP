@@ -4,3 +4,4 @@ export {default as DisplayJobs } from "./displayGithubJobs";
 export {default as Locations } from "./Locations";
 export {default as CitiesSearchContainer } from "./CitiesSearch";
 export {default as ProgressLists } from "./ProgressLists";
+export {default as DetailsContainer } from "./Details";

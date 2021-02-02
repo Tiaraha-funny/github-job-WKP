@@ -1,9 +1,8 @@
 import styled from "styled-components";
 
-export const Container = styled.form`
-`;
+export const Container = styled.form``;
 export const Input = styled.input`
-margin-right: 20px;
+  margin-right: 20px;
 `;
 
 export const Label = styled.label``;

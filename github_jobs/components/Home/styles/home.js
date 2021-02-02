@@ -13,5 +13,5 @@ export const Content = styled.div`
 export const Checkbox = styled.div`
 color: #334680;
 padding: 50px;
-font-size: 25px;
+font-size: 20px;
 `;

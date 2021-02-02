@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { Header } from "../components";
 import { Container } from "../components/Header/styles/header";
 import { GlobalContexts } from "../globalContext";
+import outLineWork from "../icons/work_outline.svg";
 
 export default function HeaderContainer() {
   const { state, dispatch } = useContext(GlobalContexts);
@@ -10,11 +11,13 @@ export default function HeaderContainer() {
 
   function handleSubmitForm(e) {
     e.preventDefault();
-    const filterValueFromInput = jobs.filter((input) =>
-      input.title.toLowerCase().includes(search.toLowerCase()) || input.company.toLowerCase().includes(search.toLowerCase())
+    const filterValueFromInput = jobs.filter(
+      (input) =>
+        input.title.toLowerCase().includes(search.toLowerCase()) ||
+        input.company.toLowerCase().includes(search.toLowerCase())
     );
     console.log("filter", filterValueFromInput);
-    dispatch({type: "SEARCH", filterValueFromInput})
+    dispatch({ type: "SEARCH", filterValueFromInput });
   }
 
   function handleInputSearch(e) {
@@ -24,6 +27,8 @@ export default function HeaderContainer() {
   return (
     <Container>
       <Header.Form onSubmit={handleSubmitForm}>
+        <img src={outLineWork} />
+
         <Header.Input
           type="text"
           name="company"
