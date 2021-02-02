@@ -34,24 +34,29 @@ export default function DisplayGithubJobsContainer() {
         let time = new Date().getTime() - new Date(job.created_at).getTime();
         let getTime = Math.round(Math.floor(time) / (1000 * 60 * 60 * 24));
         return (
-          <Container key={index} href={`/details/${job.id}`}>
-            <DisplayJobs.Image src={job.company_logo} />
-            <DisplayJobs.Cover>
-              <div>
-                <DisplayJobs.Text>{job.company}</DisplayJobs.Text>
-                <DisplayJobs.Text>{job.title}</DisplayJobs.Text>
-                <DisplayJobs.FullTimeBtn>{job.type}</DisplayJobs.FullTimeBtn>
-              </div>
+          <Container key={index}>
+            <DisplayJobs.LinkDetails to={`/details/${job.id}`} >
+              <DisplayJobs.Image src={job.company_logo} />
+              <DisplayJobs.Cover>
+                <div>
+                  <DisplayJobs.Text>{job.company}</DisplayJobs.Text>
+                  <DisplayJobs.Text>{job.title}</DisplayJobs.Text>
+                  <DisplayJobs.FullTimeBtn>{job.type}</DisplayJobs.FullTimeBtn>
+                </div>
 
-              <DisplayJobs.LocationsAndDates>
-                <DisplayJobs.Text>{job.location}</DisplayJobs.Text>
-                <DisplayJobs.Text>{getTime} hours</DisplayJobs.Text>
-              </DisplayJobs.LocationsAndDates>
-            </DisplayJobs.Cover>
+                <DisplayJobs.LocationsAndDates>
+                  <DisplayJobs.Text>{job.location}</DisplayJobs.Text>
+                  <DisplayJobs.Text>{getTime} hours</DisplayJobs.Text>
+                </DisplayJobs.LocationsAndDates>
+              </DisplayJobs.Cover>
+              </DisplayJobs.LinkDetails>
           </Container>
         );
       })}
-      <ProgressListsContainer handleButtonClicks={handleButtonClicks} buttonNumbers={buttonNumbers} />
+      <ProgressListsContainer
+        handleButtonClicks={handleButtonClicks}
+        buttonNumbers={buttonNumbers}
+      />
     </div>
   );
 }

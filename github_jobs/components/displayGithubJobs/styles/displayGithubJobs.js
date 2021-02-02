@@ -1,12 +1,20 @@
 import styled from "styled-components";
 
-export const Container = styled.a`
+export const Container = styled.section`
+  background-color: white;
+  margin: 30px;
+  color: #334680;
+  border-radius: 10px;
+`;
+
+export const LinkDetails = styled.div`
   background-color: white;
   display: flex;
   margin: 30px;
   color: #334680;
   border-radius: 10px;
 `;
+
 export const Cover = styled.div`
   display: flex;
   flex-direction: row;

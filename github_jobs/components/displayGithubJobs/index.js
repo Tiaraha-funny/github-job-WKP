@@ -1,9 +1,18 @@
 import React from "react";
+import { Link as ReachRouterLink } from "react-router-dom";
 
-import {Container, Image, Cover, LocationsAndDates, Text, FullTimeBtn,Loading } from "./styles/displayGithubJobs";
+import {Container, Image, Cover, LocationsAndDates, Text, FullTimeBtn, Loading, LinkDetails } from "./styles/displayGithubJobs";
 
 export default function DisplayJobs({ children, ...restProps }) {
   return <Container {...restProps}>{children}</Container>;
+}
+
+DisplayJobs.LinkDetails = function DisplayJobsLinkDetails({ to, ...restProps }) {
+  return (
+    <ReachRouterLink to={to} >
+      <LinkDetails {...restProps} />
+    </ReachRouterLink>
+  );
 }
 
 DisplayJobs.Image = function DisplayJobsImage({ children, ...restProps }) {

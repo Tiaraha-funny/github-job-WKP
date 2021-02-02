@@ -52719,7 +52719,6 @@ function Details() {
   const findDetailedJobById = jobs.find(detail => detail?.id === Id);
 
   function ShowDetails() {
-    // This is the main details of the description
     if (findDetailedJobById) {
       return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", {
         className: "howto"
@@ -53097,20 +53096,27 @@ FullTimeJobs.Label = function FullTimeJobsLabel({ ...restProps
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.LocationsAndDates = exports.Image = exports.FullTimeBtn = exports.Loading = exports.Text = exports.Cover = exports.Container = void 0;
+exports.LocationsAndDates = exports.Image = exports.FullTimeBtn = exports.Loading = exports.Text = exports.Cover = exports.LinkDetails = exports.Container = void 0;
 
 var _styledComponents = _interopRequireDefault(require("styled-components"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const Container = _styledComponents.default.a`
+const Container = _styledComponents.default.section`
+  background-color: white;
+  margin: 30px;
+  color: #334680;
+  border-radius: 10px;
+`;
+exports.Container = Container;
+const LinkDetails = _styledComponents.default.div`
   background-color: white;
   display: flex;
   margin: 30px;
   color: #334680;
   border-radius: 10px;
 `;
-exports.Container = Container;
+exports.LinkDetails = LinkDetails;
 const Cover = _styledComponents.default.div`
   display: flex;
   flex-direction: row;
@@ -53170,6 +53176,8 @@ exports.default = DisplayJobs;
 
 var _react = _interopRequireDefault(require("react"));
 
+var _reactRouterDom = require("react-router-dom");
+
 var _displayGithubJobs = require("./styles/displayGithubJobs");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -53180,6 +53188,15 @@ function DisplayJobs({
 }) {
   return /*#__PURE__*/_react.default.createElement(_displayGithubJobs.Container, restProps, children);
 }
+
+DisplayJobs.LinkDetails = function DisplayJobsLinkDetails({
+  to,
+  ...restProps
+}) {
+  return /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+    to: to
+  }, /*#__PURE__*/_react.default.createElement(_displayGithubJobs.LinkDetails, restProps));
+};
 
 DisplayJobs.Image = function DisplayJobsImage({
   children,
@@ -53222,7 +53239,7 @@ DisplayJobs.LocationsAndDates = function DisplayJobsLocationsAndDates({
 }) {
   return /*#__PURE__*/_react.default.createElement(_displayGithubJobs.LocationsAndDates, restProps, children);
 };
-},{"react":"node_modules/react/index.js","./styles/displayGithubJobs":"github_jobs/components/displayGithubJobs/styles/displayGithubJobs.js"}],"github_jobs/components/Locations/styles/location.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","./styles/displayGithubJobs":"github_jobs/components/displayGithubJobs/styles/displayGithubJobs.js"}],"github_jobs/components/Locations/styles/location.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -53512,11 +53529,12 @@ function DisplayGithubJobsContainer() {
     let time = new Date().getTime() - new Date(job.created_at).getTime();
     let getTime = Math.round(Math.floor(time) / (1000 * 60 * 60 * 24));
     return /*#__PURE__*/_react.default.createElement(_displayGithubJobs.Container, {
-      key: index,
-      href: `/details/${job.id}`
+      key: index
+    }, /*#__PURE__*/_react.default.createElement(_components.DisplayJobs.LinkDetails, {
+      to: `/details/${job.id}`
     }, /*#__PURE__*/_react.default.createElement(_components.DisplayJobs.Image, {
       src: job.company_logo
-    }), /*#__PURE__*/_react.default.createElement(_components.DisplayJobs.Cover, null, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_components.DisplayJobs.Text, null, job.company), /*#__PURE__*/_react.default.createElement(_components.DisplayJobs.Text, null, job.title), /*#__PURE__*/_react.default.createElement(_components.DisplayJobs.FullTimeBtn, null, job.type)), /*#__PURE__*/_react.default.createElement(_components.DisplayJobs.LocationsAndDates, null, /*#__PURE__*/_react.default.createElement(_components.DisplayJobs.Text, null, job.location), /*#__PURE__*/_react.default.createElement(_components.DisplayJobs.Text, null, getTime, " hours"))));
+    }), /*#__PURE__*/_react.default.createElement(_components.DisplayJobs.Cover, null, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_components.DisplayJobs.Text, null, job.company), /*#__PURE__*/_react.default.createElement(_components.DisplayJobs.Text, null, job.title), /*#__PURE__*/_react.default.createElement(_components.DisplayJobs.FullTimeBtn, null, job.type)), /*#__PURE__*/_react.default.createElement(_components.DisplayJobs.LocationsAndDates, null, /*#__PURE__*/_react.default.createElement(_components.DisplayJobs.Text, null, job.location), /*#__PURE__*/_react.default.createElement(_components.DisplayJobs.Text, null, getTime, " hours")))));
   }), /*#__PURE__*/_react.default.createElement(_ProgressLists.default, {
     handleButtonClicks: handleButtonClicks,
     buttonNumbers: buttonNumbers

@@ -22,7 +22,6 @@ function Details() {
   const findDetailedJobById = jobs.find((detail) => detail?.id === Id);
 
   function ShowDetails() {
-    // This is the main details of the description
 
     if (findDetailedJobById) {
       return (
